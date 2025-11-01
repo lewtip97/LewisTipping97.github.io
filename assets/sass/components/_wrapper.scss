@@ -28,31 +28,73 @@
 		}
 
 		&.alt {
-			background-color: _palette(bg-alt);
+			background: rgba(18, 18, 26, 0.6);
+			backdrop-filter: blur(20px) saturate(180%);
+			-webkit-backdrop-filter: blur(20px) saturate(180%);
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			border-radius: 24px;
+			box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.05);
+			margin: 2em 0;
 		}
 
 		&.style1 {
-			background-color: _palette(accent1);
+			background: rgba(0, 122, 255, 0.08);
+			backdrop-filter: blur(20px) saturate(180%);
+			-webkit-backdrop-filter: blur(20px) saturate(180%);
+			border: 1px solid rgba(255, 255, 255, 0.12);
+			border-radius: 24px;
+			box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+			margin: 2em 0;
 		}
 
 		&.style1-alt {
-			background-color: _palette(accent1-alt);
+			background: rgba(0, 81, 213, 0.1);
+			backdrop-filter: blur(20px) saturate(180%);
+			-webkit-backdrop-filter: blur(20px) saturate(180%);
+			border: 1px solid rgba(255, 255, 255, 0.12);
+			border-radius: 24px;
+			box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+			margin: 2em 0;
 		}
 
 		&.style2 {
-			background-color: _palette(accent2);
+			background: rgba(94, 92, 230, 0.08);
+			backdrop-filter: blur(20px) saturate(180%);
+			-webkit-backdrop-filter: blur(20px) saturate(180%);
+			border: 1px solid rgba(255, 255, 255, 0.12);
+			border-radius: 24px;
+			box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+			margin: 2em 0;
 		}
 
 		&.style2-alt {
-			background-color: _palette(accent2-alt);
+			background: rgba(74, 74, 191, 0.1);
+			backdrop-filter: blur(20px) saturate(180%);
+			-webkit-backdrop-filter: blur(20px) saturate(180%);
+			border: 1px solid rgba(255, 255, 255, 0.12);
+			border-radius: 24px;
+			box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+			margin: 2em 0;
 		}
 
 		&.style3 {
-			background-color: _palette(accent3);
+			background: rgba(0, 199, 190, 0.08);
+			backdrop-filter: blur(20px) saturate(180%);
+			-webkit-backdrop-filter: blur(20px) saturate(180%);
+			border: 1px solid rgba(255, 255, 255, 0.12);
+			border-radius: 24px;
+			box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+			margin: 2em 0;
 		}
 
 		&.style3-alt {
-			background-color: _palette(accent3-alt);
+			background: rgba(0, 168, 154, 0.1);
+			backdrop-filter: blur(20px) saturate(180%);
+			-webkit-backdrop-filter: blur(20px) saturate(180%);
+			border: 1px solid rgba(255, 255, 255, 0.12);
+			border-radius: 24px;
+			box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+			margin: 2em 0;
 		}
 
 		&.fullscreen {

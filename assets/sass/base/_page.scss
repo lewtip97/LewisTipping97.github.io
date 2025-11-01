@@ -34,7 +34,24 @@
 		}
 
 	body {
-		background: _palette(bg);
+		background: linear-gradient(135deg, _palette(bg-gradient-start) 0%, _palette(bg-gradient-end) 100%);
+		background-attachment: fixed;
+		position: relative;
+		overflow-x: hidden;
+
+		// Add subtle animated gradient overlay
+		&:before {
+			content: '';
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: radial-gradient(circle at 20% 50%, rgba(0,122,255,0.1) 0%, transparent 50%),
+						radial-gradient(circle at 80% 80%, rgba(94,92,230,0.1) 0%, transparent 50%);
+			pointer-events: none;
+			z-index: 1;
+		}
 
 		// Stops initial animations until page loads.
 			&.is-preload {

@@ -35,39 +35,56 @@
 			width: 2.5em;
 			height: 2.5em;
 			display: block;
-			background: _palette(fg-bold);
+			background: rgba(255, 255, 255, 0.1);
+			backdrop-filter: blur(10px) saturate(180%);
+			-webkit-backdrop-filter: blur(10px) saturate(180%);
+			border: 1px solid rgba(255, 255, 255, 0.15);
 			border-radius: 100%;
-			color: _palette(bg);
+			box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+			color: _palette(fg-bold);
 			text-align: center;
 			line-height: 2.5em;
 			margin: 0 0 (_size(element-margin) * 0.65) 0;
+			transition: all 0.3s ease;
 
 			&:before {
 				font-size: 1.25em;
+				color: _palette(fg-bold);
 
 				.wrapper.style1 & {
 					color: _palette(accent1);
+					text-shadow: 0 0 10px rgba(0, 122, 255, 0.5);
 				}
 
 				.wrapper.style1-alt & {
-					color: _palette(accent1-alt);
+					color: _palette(accent1);
+					text-shadow: 0 0 10px rgba(0, 122, 255, 0.5);
 				}
 
 				.wrapper.style2 & {
 					color: _palette(accent2);
+					text-shadow: 0 0 10px rgba(94, 92, 230, 0.5);
 				}
 
 				.wrapper.style2-alt & {
-					color: _palette(accent2-alt);
+					color: _palette(accent2);
+					text-shadow: 0 0 10px rgba(94, 92, 230, 0.5);
 				}
 
 				.wrapper.style3 & {
 					color: _palette(accent3);
+					text-shadow: 0 0 10px rgba(0, 199, 190, 0.5);
 				}
 
 				.wrapper.style3-alt & {
-					color: _palette(accent3-alt);
+					color: _palette(accent3);
+					text-shadow: 0 0 10px rgba(0, 199, 190, 0.5);
 				}
+			}
+
+			&:hover {
+				transform: translateY(-2px) scale(1.05);
+				box-shadow: 0 8px 24px rgba(0, 122, 255, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.15);
 			}
 		}
 	}
