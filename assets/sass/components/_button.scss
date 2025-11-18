@@ -13,11 +13,15 @@
 	.button {
 		@include vendor('appearance', 'none');
 		@include vendor('transition', (
-			'border-color #{_duration(transition)} ease'
+			'all #{_duration(transition)} ease',
+			'transform 0.15s ease',
+			'box-shadow 0.15s ease'
 		));
-		background-color: transparent;
+		background: rgba(255, 255, 255, 0.06);
+		backdrop-filter: blur(10px) saturate(180%);
+		-webkit-backdrop-filter: blur(10px) saturate(180%);
 		border: solid 1px !important;
-		border-color: _palette(border) !important;
+		border-color: rgba(255, 255, 255, 0.18) !important;
 		border-radius: 3em;
 		color: _palette(fg-bold) !important;
 		cursor: pointer;
@@ -34,6 +38,7 @@
 		text-decoration: none;
 		text-transform: uppercase;
 		white-space: nowrap;
+		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.1);
 
 		&:after {
 			@include vendor('transform', 'scale(0.25)');
@@ -72,11 +77,18 @@
 		}
 
 		&.primary {
-			background-color: _palette(fg-bold);
-			color: _palette(bg) !important;
+			background: linear-gradient(135deg, _palette(accent1) 0%, _palette(accent2) 100%);
+			color: _palette(fg-bold) !important;
+			border-color: rgba(255, 255, 255, 0.25) !important;
+			box-shadow: 0 4px 20px rgba(0, 122, 255, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.2);
 
 			&:after {
 				display: none;
+			}
+
+			&:hover {
+				background: linear-gradient(135deg, _palette(accent1-alt) 0%, _palette(accent2-alt) 100%);
+				box-shadow: 0 8px 28px rgba(0, 122, 255, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.25);
 			}
 		}
 
@@ -88,7 +100,10 @@
 		}
 
 		&:hover {
-			border-color: _palette(fg) !important;
+			border-color: rgba(255, 255, 255, 0.35) !important;
+			background: rgba(255, 255, 255, 0.1);
+			transform: translateY(-2px);
+			box-shadow: 0 8px 24px rgba(0, 122, 255, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.15);
 
 			&:after {
 				opacity: 0.05;
@@ -97,6 +112,8 @@
 
 			&:active {
 				border-color: _palette(fg-bold) !important;
+				transform: translateY(0);
+				box-shadow: 0 4px 12px rgba(0, 122, 255, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.1);
 
 				&:after {
 					opacity: 0.1;

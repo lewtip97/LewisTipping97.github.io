@@ -7,16 +7,24 @@
 /* Wrapper (main) */
 
 	#wrapper {
+		padding: 2em;
+		position: relative;
+		z-index: 2;
+
+		@include breakpoint('<=small') {
+			padding: 1em;
+		}
+
 		#sidebar + & {
 			margin-left: _size(sidebar-width);
 
 			@include breakpoint('<=large') {
 				margin-left: 0;
-				padding-top: _size(sidebar-height);
+				padding-top: calc(_size(sidebar-height) + 2em);
 			}
 
 			@include breakpoint('<=small') {
-				padding-top: 0;
+				padding-top: 1em;
 			}
 		}
 
