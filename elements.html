@@ -1,12 +1,7 @@
 <!DOCTYPE HTML>
-<!--
-	Hyperspace by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
 	<head>
-		<title>Football manager analysis using web scraping and NLP</title>
+		<title>Lewis Tipping | Analytics Toolkit Coming Soon</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -20,6 +15,7 @@
 				<nav>
 					<ul>
 						<li><a href="index.html">Home</a></li>
+						<li><a href="generic.html">Professional experience</a></li>
 					</ul>
 				</nav>
 			</header>
@@ -28,133 +24,35 @@
 			<div id="wrapper">
 
 				<!-- Main -->
-					<section id="main" class="wrapper">
+					<section id="main" class="wrapper style1 fade-up">
 						<div class="inner">
-							<h1 class="major">NLP and web scraping</h1>
-
-							<!-- Text -->
+							<h1 class="major">Analytics toolkit coming soon</h1>
+							<p>I’m curating a focused set of analytics case studies that show how I craft dashboards, workflows, and executive-ready insights. Expect concise walkthroughs, interactive snippets, and a closer look at the thinking that happens between the data and the decision.</p>
+							<div class="features">
 								<section>
-									<h2>Sentiment analysis using web scraping and NLP</h2>									
-									
-									<p>The motivation behind this project has come following frustrations of mine. I find the world of 'football twitter' an infuriating place. Any performance that is not a 10/10 will be slandered by someone, somewhere on the internet.
-										I want to see if there is any sense on twitter, is a poor twitter sentiment a sign that you are in danger of losing your job as a football manager?
-									</p>
-									<p>This project has three distinct sections:</p>
-									<ol>
-										<li><b>Web scraping - </b>The data used in this project were sourced entirely from the internet, using scraping tools in Python. </li>
-										<li><b>Data manipulation - </b>The scraped tweets required cleaning to remove noise, there was also maniuplation that required a strong Pandas understanding.</li>
-										<li><b>Natural language processing - </b>Data were setup to work well in an NLP environment, the actual content needed to be analysed using sentiment analysis.</li>
-									  </ol>
-									  <p> I decided to focus on a league that is popular, but would not have an overwhelming amount of data linked to it, that is League two (actually the 4th division) of the english football pyramid.
-											This league has 24 teams of average size which I hoped would yield a decent, yet bareable, amount of data.
-									  </p>
-									  <p> The plan was to scrape all tweets that included one of the 24 managers name in it, with the hope to then analyse the tweets and understand how the public felt towards a team based on how they talked about their manager.</p>
-									<hr />
-									<h2>Web scraping</h2>
-									<p>This project required data from two sources, the first half of the problem was finding a list of all league 2 football managers. Luckily, Wikipedia has a list of all professional 
-										football managers in the UK. This table not only provided a list of manager names, but also a list of when these managers were appointed, which would come in useful later on. The approach taken to 
-										collect this information can be seen below.
-										</p>
-									<pre><code class = "brush: python">
-import pandas as pd
-import numpy as np
-import requests
-from bs4 import BeautifulSoup
-page = requests.get('https://en.wikipedia.org/wiki/List_of_current_Premier_League_and_English_Football_League_managers').text
-soup = BeautifulSoup(page, 'html.parser')
-table = soup.find('table', class_= 'wikitable sortable plainrowheaders')
+									<span class="icon solid major fa-chart-line"></span>
+									<h3>Signals over noise</h3>
+									<p>Walkthroughs of the frameworks I use to simplify complex reporting needs into elegant, high-trust dashboards.</p>
+								</section>
+								<section>
+									<span class="icon solid major fa-layer-group"></span>
+									<h3>Crafted workflows</h3>
+									<p>Behind-the-scenes looks at modelling, governance, and automation choices that keep analytics teams moving quickly.</p>
+								</section>
+							</div>
+							<ul class="actions">
+								<li><a href="index.html" class="button">Return home</a></li>
+							</ul>
+						</div>
+					</section>
 
-df = pd.read_html(str(table))
-managers = pd.concat(df)</code></pre>
-									<p> The table itself then needed some basic cleaning in order to allow for the tweet collection. This involved pairing a start date to a manager, this date would be the day
-										the manager was appointed for managers new that year, for longer serving managers who were with the club in the previous year, the start date would be the first day of the season
-										as this is the date we want to begin tweet collection.
-									</p>
-									<pre><code>
-#Removing the reference text from the date the manager was appointed
-managers['From'] = managers['From'].str.replace(r'\[.*?\]', '', regex=True)
+			</div>
 
-#A new column is created that collects the day the manager took charge of the team (only relevant for new starters, longer serving managers default to first day of season)
-managers['dateAppointed'] = pd.to_datetime(managers['From'])
-for day in range(0,len(managers['dateAppointed'])):
-	if managers.dateAppointed[day] < pd.to_datetime('30 July 2022'):
-		managers.dateAppointed[day] = pd.to_datetime('30 July 2022')
-
-import datetime as dt
-managers['epochFirstDay'] = managers['dateAppointed'].astype('int64')//1e9
-										</code></pre>
-										<p>	
-										Now that there was a list of manager names and a starting date from which the tweets could be collected, the second data type for this project could be scraped. 
-										The first half of the chunk below is writing a function that will take the keyword to search for and the starting date of the tweets. The second half of the chunk calls 
-										the function for each manager and appends all the tweets into a single data frame.
-									</p>
-									<pre><code>
-import snscrape.modules.twitter as sntwitter
-def TweetCollecter(NameOfManager, DateAppointed):
-	KeyWord = str(NameOfManager)
-	line = ' since_time: lang:en'
-	index = line.find('lang:en')
-	size = len(str(DateAppointed)) -2
-	DateAndLanguage = line[:index-1] + str(DateAppointed)[:size] + ' ' + line[index:]
-	maxTweets = 3000
-	tweets = []
-	tdf = None
-	for i,tweet in enumerate(sntwitter.TwitterSearchScraper(KeyWord + DateAndLanguage).get_items()) :
-		if i > maxTweets :
-			break
-		username = tweet.username
-		text = tweet.content
-		pubdate = tweet.date
-		permalink = tweet.url
-		tweets.append({
-			"permalink":permalink,
-			"pubdate":pubdate,
-			"text":text,
-			"username":username,
-			"Manager":KeyWord
-		})
-	return tweets
-
-AllManagerTweets = pd.DataFrame(TweetCollecter(NameOfManager= managers.Manager[0],DateAppointed= managers.epochFirstDay[0]))
-for row in range(1, len(managers)):
-	NewBatch = pd.DataFrame(TweetCollecter(NameOfManager= managers.Manager[row],DateAppointed= managers.epochFirstDay[row]))
-	AllManagerTweets = AllManagerTweets.append(NewBatch)</code></pre>
-	<h2>Data manipulation</h2>
-
-									<p>Once the data were collected, the data cleansing process could begin, as this is not a tutorial, I will not go into too much detail, but instead highlight the key 
-										tasks undertook:
-									</p>
-									<ul>
-										<li>Clean the tweets individually, removing punctuation, html links and excess blank space.</li>
-										<li>Add an associated week to a tweet, week 1 means the tweet was made 1 week into the season, week 2 is 2 weeks in etc.</li>
-										<li>Create a data frame which has one row per week for every manager, all tweets written about a manager will be stored in a bag of words corresponding to that row.</li>
-									</ul>
-
-									<p> This process ended up with a dataframe which contained three columns: 'week', 'manager' and 'AllTweets'. The 'AllTweets' column contained the corpus which stored all cleaned
-										tweets about that manager in that specific week, stored as one long text string.
-									</p>
-									
-	<h2>Natural language processing</h2>
-	<p>This part of the project ended up requiring the least amount of work. The only thing left to do was to evaluate each corpus and find an appropriate metric. I used the natural language toolkit in Python
-	which has a useful function which can provide a score to a corpus. The scores can be a positivity/negativity/general sentiment rating, for the purpose of this problem, a negativity score seems the most appropriate.
-This negativity score is simply the fraction of words in a sentence which are negative. The scores were calculated for every manager over time and you can see the results in the figure below. Managers 
-can be selected individually, or compared together by clicking on the names on the right hand side.</p>
-<iframe width="900" height="800" frameborder="0" scrolling="no" src="//plotly.com/~LewTip97/1.embed"></iframe>
-<p>It is possible to compare managers who have had distinctly different seasons. At the time of writing this, Leyton Orient, managed by Richie Wellens, are flying at the top of the league. In contrast, my team, Harrogate Town who are managed 
-	by Simon Weaver, are struggling in 20th place. If these two managers are isolated in the plot above, it is clear to see what the public
-	verdict is. Of the 24 weeks completed this season, there are only 4 times where the twitter voice was more negative towards the Leyton Orient manager compared to the Harrogate Town boss, given that Harrogate have won 5 times this year,
-	its easy to see where these low negative scores occurred. </p>
-
-<h2>Future work</h2>
-<p> This project sparked ideas on how I can develop this idea in the future. This work took a static look at the state of manager sentiment midway through the season. In the future
-	I believe it would be exciting to create a feed that can scrape data on a regular basis and be use the data as a predictor for a manager being sacked. 
-</p>
-<p> If you have made it this far, thanks for reading!</p>
 		<!-- Footer -->
-			<footer id="footer" class="wrapper alt">
+			<footer id="footer" class="wrapper style1-alt">
 				<div class="inner">
 					<ul class="menu">
-						<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+						<li>&copy; Lewis Tipping. All rights reserved.</li><li>Design base: <a href="http://html5up.net">HTML5 UP</a></li>
 					</ul>
 				</div>
 			</footer>
@@ -170,3 +68,4 @@ can be selected individually, or compared together by clicking on the names on t
 
 	</body>
 </html>
+
