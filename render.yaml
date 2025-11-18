@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: wainwright-planner-api
+    env: python
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: cd backend && uvicorn app:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PORT
+        generateValue: true
+    healthCheckPath: /
+
