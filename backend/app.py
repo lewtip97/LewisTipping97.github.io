@@ -16,7 +16,7 @@ from shapely.geometry import LineString
 
 
 # Data path - works both locally and on Render
-# On Render, the data directory should be in the repo root
+# On Render with rootDir=backend, we need to go up one level to find data
 DATA_PATH = Path(__file__).parent.parent / "data" / "prow" / "ldnpa_prow.gpkg"
 MAX_GRAPH_EDGES = 5_000_000
 NODE_PRECISION = 3  # metres
